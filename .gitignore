@@ -48,7 +48,6 @@ app.*.map.json
 /backend/target/
 backend/target/
 **/*.rs.bk
-Cargo.lock
 
 # Environment — jangan pernah commit secrets
 backend/.env
