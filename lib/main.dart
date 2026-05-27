@@ -7,7 +7,7 @@ import 'pages/login_page.dart';
 import 'pages/home_page.dart';
 
 void main() {
-  final apiService = ApiService(baseUrl: 'http://10.0.2.2:3000');
+  final apiService = ApiService(baseUrl: 'http://172.17.10.4:3001');
 
   runApp(
     MultiProvider(
