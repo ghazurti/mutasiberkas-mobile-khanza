@@ -1,0 +1,11 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: berkas-rm-backend
+    restart: unless-stopped
+    # host network agar bisa akses MySQL aaPanel di localhost
+    network_mode: host
+    env_file:
+      - ./backend/.env
