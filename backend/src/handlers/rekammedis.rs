@@ -11,19 +11,22 @@ pub async fn post_mutation(
     println!("📦 Mutation Request for No.RM: [{}]", clean_no_rm);
 
     // 1. Get the latest no_rawat and status for today
-    let visit = sqlx::query!(
-        "SELECT no_rawat, status_lanjut FROM reg_periksa 
-         WHERE no_rkm_medis = ? AND tgl_registrasi = CURDATE() 
+    let visit = sqlx::query(
+        "SELECT no_rawat, status_lanjut FROM reg_periksa
+         WHERE no_rkm_medis = ? AND tgl_registrasi = CURDATE()
          ORDER BY jam_reg DESC LIMIT 1",
-        clean_no_rm
     )
+    .bind(clean_no_rm)
     .fetch_optional(&pool)
     .await;
 
     let (no_rawat, is_ranap) = match visit {
         Ok(Some(v)) => {
-            println!("✅ Visit Found: {} ({})", v.no_rawat, v.status_lanjut);
-            (v.no_rawat, v.status_lanjut == "Ranap")
+            use sqlx::Row;
+            let no_rawat: String = v.get("no_rawat");
+            let status_lanjut: String = v.get("status_lanjut");
+            println!("✅ Visit Found: {} ({})", no_rawat, status_lanjut);
+            (no_rawat, status_lanjut == "Ranap")
         }
         Ok(None) => {
             println!("❌ No visit found for No.RM: [{}] today", clean_no_rm);
