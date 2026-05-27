@@ -5,7 +5,9 @@ services:
       dockerfile: Dockerfile
     container_name: berkas-rm-backend
     restart: unless-stopped
-    # host network agar bisa akses MySQL aaPanel di localhost
-    network_mode: host
+    ports:
+      - "3000:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     env_file:
       - ./backend/.env
