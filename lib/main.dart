@@ -7,7 +7,7 @@ import 'pages/login_page.dart';
 import 'pages/home_page.dart';
 
 void main() {
-  final apiService = ApiService(baseUrl: 'https://apirm.simrsrsudbaubau.online');
+  final apiService = ApiService(baseUrl: 'http://localhost:3000');
 
   runApp(
     MultiProvider(
