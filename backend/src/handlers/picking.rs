@@ -14,6 +14,7 @@ pub async fn get_picking_list(
          LEFT JOIN rak_penyimpanan_berkas rk ON r.no_rkm_medis = rk.no_rkm_medis
          WHERE r.tgl_registrasi = CURDATE()
          AND (m.status IS NULL OR m.status NOT IN ('Sudah Dikirim', 'Sudah Kembali'))
+         AND pol.nm_poli NOT LIKE '%IGD%'
          ORDER BY r.jam_reg ASC",
     )
     .fetch_all(&pool)
